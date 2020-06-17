@@ -3,7 +3,7 @@ import Movies from './components/Movies';
 
 function App() {
 	return (
-		<main className='container'>
+		<main className='container my-4'>
 			<Movies />
 		</main>
 	);

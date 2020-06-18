@@ -15,12 +15,12 @@ class TableHeader extends Component {
 	};
 
 	render() {
-		const { colums } = this.props;
+		const { columns } = this.props;
 
 		return (
 			<thead>
 				<tr>
-					{colums.map((c) => (
+					{columns.map((c) => (
 						<th
 							key={c.path || c.key}
 							onClick={() => this.raiseSortEvent(c.path)}

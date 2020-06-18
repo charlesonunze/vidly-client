@@ -3,7 +3,7 @@ import Like from './reusable/Like';
 import TableHeader from './reusable/TableHeader';
 
 class MoviesTable extends Component {
-	colums = [
+	columns = [
 		{ path: 'title', label: 'Title' },
 		{ path: 'genre.name', label: 'Genre' },
 		{ path: 'numberInStock', label: 'Stock' },
@@ -18,7 +18,7 @@ class MoviesTable extends Component {
 		return (
 			<table className='table'>
 				<TableHeader
-					colums={this.colums}
+					columns={this.columns}
 					onSort={onSort}
 					sortColumn={sortColumn}
 				/>

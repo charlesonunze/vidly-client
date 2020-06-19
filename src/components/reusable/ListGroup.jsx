@@ -10,7 +10,7 @@ const ListGroup = (props) => {
 					<li
 						key={item[idProperty]}
 						className={
-							item === selectedItem
+							item[textProperty] === selectedItem[textProperty]
 								? 'clickable list-group-item active'
 								: 'clickable list-group-item'
 						}

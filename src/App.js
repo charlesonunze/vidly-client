@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Customers from './components/Customers';
 import Rentals from './components/Rentals';
 import NotFound from './components/NotFound';
+import MoviesForm from './components/MoviesForm';
 
 function App() {
 	return (
@@ -12,7 +13,7 @@ function App() {
 			<NavBar />
 			<main className='container'>
 				<Switch>
-					{/* <Route path='/movies' component={ Movies } /> */ }
+					<Route path='/movies/:id' component={ MoviesForm } />
 					<Route path='/movies' component={ Movies } />
 					<Route path='/rentals' component={ Rentals } />
 					<Route path='/customers' component={ Customers } />

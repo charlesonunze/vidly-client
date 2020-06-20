@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Like from './reusable/Like';
 import Table from './reusable/Table';
 
 class MoviesTable extends Component {
 	columns = [
-		{ path: 'title', label: 'Title' },
+		{
+			path: 'title',
+			label: 'Title',
+			content: (movie) => {
+				return (
+					<Link
+						className='nav-link'
+						to={`/movies/${movie._id}`}
+						style={{ textDecoration: 'underline' }}
+					>
+						{movie.title}
+					</Link>
+				);
+			}
+		},
 		{ path: 'genre.name', label: 'Genre' },
 		{ path: 'numberInStock', label: 'Stock' },
 		{ path: 'dailyRentalRate', label: 'Rate' },

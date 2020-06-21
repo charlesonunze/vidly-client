@@ -6,12 +6,17 @@ class LoginForm extends Component {
 		account: {
 			username: '',
 			password: ''
-		}
+		},
+		errors: {}
 	};
 
 	formSubmitHandler = (e) => {
 		e.preventDefault();
-		console.log('sub');
+
+		const { username, password } = this.validateInput();
+		if (username || password) return;
+
+		console.log('Submit me bitch!');
 	};
 
 	onChangeHandler = ({ currentTarget: input }) => {
@@ -20,8 +25,19 @@ class LoginForm extends Component {
 		this.setState({ account });
 	};
 
+	validateInput = () => {
+		const { username, password } = { ...this.state.account };
+		const errors = {};
+
+		if (username.trim().length < 1) errors.username = 'Username is required';
+		if (password.trim().length < 1) errors.password = 'Password is required';
+
+		this.setState({ errors });
+		return errors;
+	};
+
 	render() {
-		const { account } = this.state;
+		const { account, errors } = this.state;
 
 		return (
 			<div className='container'>
@@ -32,7 +48,7 @@ class LoginForm extends Component {
 						type='text'
 						name='username'
 						label='Username'
-						errors={{}}
+						error={errors.username}
 						value={account.username}
 						onChangeHandler={this.onChangeHandler}
 					/>
@@ -41,7 +57,7 @@ class LoginForm extends Component {
 						type='password'
 						name='password'
 						label='Password'
-						errors={{}}
+						error={errors.password}
 						value={account.password}
 						onChangeHandler={this.onChangeHandler}
 					/>

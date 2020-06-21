@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FormInput = (props) => {
-	const { type, name, label, value, onChangeHandler } = props;
+	const { type, name, label, value, error, onChangeHandler } = props;
 
 	return (
 		<div className='form-group'>
@@ -16,9 +16,11 @@ const FormInput = (props) => {
 				onChange={onChangeHandler}
 			></input>
 
-			{/* <small className='form-text'>
-      <p className='text-danger'>some validation error message</p>
-    </small> */}
+			{error && (
+				<small className='form-text'>
+					<p className='text-danger'>{error}</p>
+				</small>
+			)}
 		</div>
 	);
 };

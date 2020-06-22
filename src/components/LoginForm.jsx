@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Joi from 'joi-browser';
 import FormInput from './FormInput';
 
 class LoginForm extends Component {
@@ -8,6 +9,11 @@ class LoginForm extends Component {
 			password: ''
 		},
 		errors: {}
+	};
+
+	schema = {
+		username: Joi.string().required().label('Username'),
+		password: Joi.string().required().label('Password')
 	};
 
 	formSubmitHandler = (e) => {
@@ -26,11 +32,15 @@ class LoginForm extends Component {
 	};
 
 	validateInput = () => {
-		const { username, password } = { ...this.state.account };
 		const errors = {};
+		const options = { abortEarly: false };
+		const { error } = Joi.validate(this.state.account, this.schema, options);
 
-		if (username.trim().length < 1) errors.username = 'Username is required';
-		if (password.trim().length < 1) errors.password = 'Password is required';
+		if (!error) return errors;
+
+		for (let details of error.details) {
+			errors[details.path[0]] = details.message;
+		}
 
 		this.setState({ errors });
 		return errors;

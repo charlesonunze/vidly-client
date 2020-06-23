@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Joi from 'joi-browser';
-import FormInput from './FormInput';
+import Form from './reusable/Form';
 
-class LoginForm extends Component {
+class LoginForm extends Form {
 	state = {
-		account: {
-			username: '',
-			password: ''
-		},
+		data: { username: '', password: '' },
 		errors: {}
 	};
 
@@ -16,65 +13,19 @@ class LoginForm extends Component {
 		password: Joi.string().required().label('Password')
 	};
 
-	formSubmitHandler = (e) => {
-		e.preventDefault();
-
-		const { username, password } = this.validateInput();
-		if (username || password) return;
-
+	submitForm = () => {
 		console.log('Submit me bitch!');
 	};
 
-	onChangeHandler = ({ currentTarget: input }) => {
-		const account = { ...this.state.account };
-		account[input.name] = input.value;
-		this.setState({ account });
-	};
-
-	validateInput = () => {
-		const errors = {};
-		const options = { abortEarly: false };
-		const { error } = Joi.validate(this.state.account, this.schema, options);
-
-		if (!error) return errors;
-
-		for (let details of error.details) {
-			errors[details.path[0]] = details.message;
-		}
-
-		this.setState({ errors });
-		return errors;
-	};
-
 	render() {
-		const { account, errors } = this.state;
-
 		return (
 			<div className='container'>
 				<h1>Login</h1>
 
 				<form onSubmit={this.formSubmitHandler}>
-					<FormInput
-						type='text'
-						name='username'
-						label='Username'
-						error={errors.username}
-						value={account.username}
-						onChangeHandler={this.onChangeHandler}
-					/>
-
-					<FormInput
-						type='password'
-						name='password'
-						label='Password'
-						error={errors.password}
-						value={account.password}
-						onChangeHandler={this.onChangeHandler}
-					/>
-
-					<button type='submit' className='btn btn-primary'>
-						Submit
-					</button>
+					{this.renderFormInput('text', 'username', 'Username')}
+					{this.renderFormInput('password', 'password', 'Password')}
+					{this.renderSubmitButton('Login')}
 				</form>
 			</div>
 		);

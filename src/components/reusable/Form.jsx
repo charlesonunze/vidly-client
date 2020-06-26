@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
-import FormInput from '../FormInput';
+import FormInput from './FormInput';
+import FormList from './FormList';
 
 class Form extends Component {
 	state = {
@@ -47,6 +48,17 @@ class Form extends Component {
 				label={label}
 				error={errors[name]}
 				value={data[name]}
+				onChangeHandler={this.onChangeHandler}
+			/>
+		);
+	}
+
+	renderFormList(name, label, data) {
+		return (
+			<FormList
+				name={name}
+				label={label}
+				data={data}
 				onChangeHandler={this.onChangeHandler}
 			/>
 		);

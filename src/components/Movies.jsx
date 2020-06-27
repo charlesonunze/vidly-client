@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getMovies } from '../services/fakeMovieService';
+import { getMovies, deleteMovie } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
 import MoviesTable from './MoviesTable';
 import Pagination from './reusable/Pagination';
@@ -31,6 +31,7 @@ class Movies extends Component {
 	deleteMovieHandler = (id) => {
 		const movies = [...this.state.movies].filter((movie) => movie._id !== id);
 		this.setState({ movies });
+		deleteMovie(id);
 	};
 
 	likeMovieHandler = (movieId) => {

@@ -53,12 +53,16 @@ class Form extends Component {
 		);
 	}
 
-	renderFormList(name, label, data) {
+	renderFormList(name, label, options) {
+		const { data, errors } = this.state;
+
 		return (
 			<FormList
 				name={name}
 				label={label}
-				data={data}
+				value={data[name]}
+				options={options}
+				error={errors[name]}
 				onChangeHandler={this.onChangeHandler}
 			/>
 		);
@@ -69,7 +73,7 @@ class Form extends Component {
 			<button
 				type='submit'
 				className='btn btn-primary'
-				disabled={this.validateInput()}
+				// disabled={this.validateInput()}
 			>
 				{label}
 			</button>

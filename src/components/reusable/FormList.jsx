@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FormList = (props) => {
-	const { name, label, data, onChangeHandler } = props;
+	const { name, label, error, value, options, onChangeHandler } = props;
 
 	return (
 		<div className='form-group'>
@@ -13,14 +13,25 @@ const FormList = (props) => {
 				name={name}
 				onChange={onChangeHandler}
 			>
-				{data.map((value, index) => {
+				<option value='' />
+				{options.map((option, index) => {
 					return (
-						<option value={value} key={index}>
-							{value}
+						<option
+							value={option.value}
+							key={index}
+							selected={option.value === value}
+						>
+							{option.name}
 						</option>
 					);
 				})}
 			</select>
+
+			{error && (
+				<small className='form-text'>
+					<p className='text-danger'>{error}</p>
+				</small>
+			)}
 		</div>
 	);
 };

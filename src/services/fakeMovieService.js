@@ -90,6 +90,7 @@ export function saveMovie(movie) {
   movieInDb.genre = genresAPI.genres.find(g => g._id === movie.genreId);
   movieInDb.numberInStock = movie.numberInStock;
   movieInDb.dailyRentalRate = movie.dailyRentalRate;
+  movieInDb.liked = false;
 
   if (!movieInDb._id) {
     movieInDb._id = Date.now().toString();

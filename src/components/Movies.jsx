@@ -43,6 +43,7 @@ class Movies extends Component {
 
 		this.setState({
 			movies: searchResult,
+			currentPage: 1,
 			selectedGenre: { _id: '', name: 'All Genres' }
 		});
 	};

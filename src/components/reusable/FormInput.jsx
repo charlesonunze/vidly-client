@@ -1,7 +1,15 @@
 import React from 'react';
 
 const FormInput = (props) => {
-	const { type, name, label, value, error, onChangeHandler } = props;
+	const {
+		type,
+		name,
+		label,
+		value,
+		placeholder,
+		error,
+		onChangeHandler
+	} = props;
 
 	return (
 		<div className='form-group'>
@@ -13,6 +21,7 @@ const FormInput = (props) => {
 				name={name}
 				className='form-control'
 				value={value}
+				placeholder={placeholder}
 				onChange={onChangeHandler}
 			></input>
 

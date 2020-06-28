@@ -7,10 +7,12 @@ import Pagination from './reusable/Pagination';
 import { paginate } from '../utils/paginate';
 import ListGroup from './reusable/ListGroup';
 import _ from 'lodash';
+import FormInput from './reusable/FormInput';
 
 class Movies extends Component {
 	state = {
 		movies: [],
+		moviesCopy: [],
 		genres: [],
 		pageSize: 3,
 		currentPage: 1,
@@ -22,11 +24,28 @@ class Movies extends Component {
 	};
 
 	componentDidMount() {
+		const movies = getMovies();
 		this.setState({
-			movies: getMovies(),
+			movies,
+			moviesCopy: [...movies],
 			genres: [{ _id: '', name: 'All Genres' }, ...getGenres()]
 		});
 	}
+
+	searchMovieHandler = ({ currentTarget: input }) => {
+		const movies = [...this.state.moviesCopy];
+
+		const searchResult = movies.filter((movie) => {
+			return movie.title.toLowerCase().includes(input.value);
+		});
+
+		if (searchResult.length < 1) return;
+
+		this.setState({
+			movies: searchResult,
+			selectedGenre: { _id: '', name: 'All Genres' }
+		});
+	};
 
 	deleteMovieHandler = (id) => {
 		const movies = [...this.state.movies].filter((movie) => movie._id !== id);
@@ -105,11 +124,20 @@ class Movies extends Component {
 				</div>
 
 				<div className='col'>
-					<Link className='btn btn-primary mb-2' to='/movies/new'>
+					<Link className='btn btn-primary mb-4' to='/movies/new'>
 						New Movie
 					</Link>
 
-					<h6>Showing {filteredMovies.length} movies in the database.</h6>
+					<h6 className='mb-0'>
+						Showing {filteredMovies.length} movies in the database.
+					</h6>
+
+					<FormInput
+						type='text'
+						name='search'
+						placeholder='Search'
+						onChangeHandler={this.searchMovieHandler}
+					/>
 
 					<MoviesTable
 						movies={movies}

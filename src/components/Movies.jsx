@@ -8,6 +8,7 @@ import { paginate } from '../utils/paginate';
 import ListGroup from './reusable/ListGroup';
 import _ from 'lodash';
 import FormInput from './reusable/FormInput';
+import { ToastContainer, toast } from 'react-toastify';
 
 class Movies extends Component {
 	state = {
@@ -53,6 +54,7 @@ class Movies extends Component {
 		const movies = [...this.state.movies].filter((movie) => movie._id !== id);
 		this.setState({ movies });
 		await deleteMovie(id);
+		toast.error('Post deleted.');
 	};
 
 	likeMovieHandler = (movieId) => {
@@ -117,6 +119,7 @@ class Movies extends Component {
 
 		return (
 			<div className='row'>
+				<ToastContainer />
 				<div className='col-3'>
 					<ListGroup
 						items={allGenres}

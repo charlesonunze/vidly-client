@@ -3,6 +3,7 @@ import Joi from 'joi-browser';
 import Form from './reusable/Form';
 import { getGenres } from '../services/genreService';
 import { saveMovie, getMovie, updateMovie } from '../services/movieService';
+import { toast } from 'react-toastify';
 
 class MoviesForm extends Form {
 	state = {
@@ -56,8 +57,10 @@ class MoviesForm extends Form {
 
 		if (movie._id) {
 			await updateMovie(movie);
+			toast.success('Movie updated.');
 		} else {
 			await saveMovie(movie);
+			toast.success('Movie saved.');
 		}
 
 		this.props.history.replace('/movies');

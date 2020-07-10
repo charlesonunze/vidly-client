@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getMovies, deleteMovie } from '../services/fakeMovieService';
-import { getGenres } from '../services/fakeGenreService';
+import { getMovies, deleteMovie } from '../services/movieService';
+import { getGenres } from '../services/genreService';
 import MoviesTable from './MoviesTable';
 import Pagination from './reusable/Pagination';
 import { paginate } from '../utils/paginate';
@@ -23,12 +23,13 @@ class Movies extends Component {
 		selectedGenre: { _id: '', name: 'All Genres' }
 	};
 
-	componentDidMount() {
-		const movies = getMovies();
+	async componentDidMount() {
+		const movies = await getMovies();
+		const genres = await getGenres();
 		this.setState({
 			movies,
 			moviesCopy: [...movies],
-			genres: [{ _id: '', name: 'All Genres' }, ...getGenres()]
+			genres: [{ _id: '', name: 'All Genres' }, ...genres]
 		});
 	}
 
@@ -48,10 +49,10 @@ class Movies extends Component {
 		});
 	};
 
-	deleteMovieHandler = (id) => {
+	deleteMovieHandler = async (id) => {
 		const movies = [...this.state.movies].filter((movie) => movie._id !== id);
 		this.setState({ movies });
-		deleteMovie(id);
+		await deleteMovie(id);
 	};
 
 	likeMovieHandler = (movieId) => {

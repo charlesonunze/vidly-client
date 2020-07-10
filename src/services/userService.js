@@ -4,8 +4,8 @@ import { apiEndpoint as apiURL } from "../config";
 const apiEndpoint = apiURL;
 
 export async function registerUser(userObject) {
-  const { data: user } = await httpService.post(apiEndpoint + '/users', userObject);
-  return user;
+  const response = await httpService.post(apiEndpoint + '/users', userObject);
+  return response;
 }
 
 export async function loginUser(userObject) {

@@ -9,6 +9,6 @@ export async function registerUser(userObject) {
 }
 
 export async function loginUser(userObject) {
-  const { data: user } = await httpService.post(apiEndpoint + '/auth', userObject);
-  return user;
+  const { data: token } = await httpService.post(apiEndpoint + '/auth', userObject);
+  return token;
 }

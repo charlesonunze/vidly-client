@@ -1,13 +1,12 @@
 import React from 'react';
 import Joi from 'joi-browser';
 import Form from './reusable/Form';
+import { registerUser } from '../services/userService';
 
 class RegisterForm extends Form {
 	state = {
 		data: {
-			firstName: '',
-			lastName: '',
-			username: '',
+			name: '',
 			email: '',
 			password: ''
 		},
@@ -15,15 +14,23 @@ class RegisterForm extends Form {
 	};
 
 	schema = {
-		firstName: Joi.string().required().max(10).label('First name'),
-		lastName: Joi.string().required().max(10).label('Last name'),
-		username: Joi.string().required().label('Username'),
+		name: Joi.string().required().min(2).label('Name'),
 		email: Joi.string().email().required().label('Email'),
 		password: Joi.string().required().label('Password')
 	};
 
-	submitForm = () => {
-		console.log('Submit me bitch!');
+	submitForm = async () => {
+		const { name, email, password } = this.state.data;
+
+		try {
+			await registerUser({ name, email, password });
+		} catch (error) {
+			if (error.response && error.response.status === 400) {
+				const errors = { ...this.state.errors };
+				errors.email = error.response.data;
+				this.setState({ errors });
+			}
+		}
 	};
 
 	render() {
@@ -32,9 +39,7 @@ class RegisterForm extends Form {
 				<h1>Register</h1>
 
 				<form onSubmit={this.formSubmitHandler}>
-					{this.renderFormInput('text', 'firstName', 'First name')}
-					{this.renderFormInput('text', 'lastName', 'Last name')}
-					{this.renderFormInput('text', 'username', 'Username')}
+					{this.renderFormInput('text', 'name', 'Name')}
 					{this.renderFormInput('email', 'email', 'Email')}
 					{this.renderFormInput('password', 'password', 'Password')}
 					{this.renderSubmitButton('Register')}

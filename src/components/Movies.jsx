@@ -51,10 +51,20 @@ class Movies extends Component {
 	};
 
 	deleteMovieHandler = async (id) => {
-		const movies = [...this.state.movies].filter((movie) => movie._id !== id);
+		const originalMovies = this.state.movies;
+		const movies = originalMovies.filter((movie) => movie._id !== id);
 		this.setState({ movies });
-		await deleteMovie(id);
-		toast.error('Post deleted.');
+
+		try {
+			await deleteMovie(id);
+			toast.success('Post deleted.');
+		} catch (error) {
+			if (error.response && error.response.status === 404) {
+				toast.error(`Post has already been deleted or doesn't exist`);
+			}
+
+			this.setState({ movies: originalMovies });
+		}
 	};
 
 	likeMovieHandler = (movieId) => {

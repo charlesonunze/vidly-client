@@ -105,17 +105,6 @@ class Movies extends Component {
 			sortColumn
 		} = this.state;
 
-		if (allMovies.length < 1) {
-			return (
-				<h6>
-					There are no movies in the database
-					<span role='img' aria-label='sad-emoji'>
-						😞
-					</span>
-				</h6>
-			);
-		}
-
 		const filteredMovies =
 			selectedGenre && selectedGenre._id
 				? allMovies.filter((movie) => {

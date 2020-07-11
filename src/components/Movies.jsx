@@ -60,7 +60,11 @@ class Movies extends Component {
 			toast.success('Post deleted.');
 		} catch (error) {
 			if (error.response && error.response.status === 404) {
-				toast.error(`Post has already been deleted or doesn't exist`);
+				toast.error(`Post has already been deleted or doesn't exist.`);
+			}
+
+			if (error.response && (error.response.status === 403 || 400)) {
+				toast.error(`You can't perfom this action.`);
 			}
 
 			this.setState({ movies: originalMovies });

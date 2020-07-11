@@ -9,6 +9,7 @@ import NotFound from './components/NotFound';
 import MoviesForm from './components/MoviesForm';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
+import Logout from './components/Logout';
 
 class App extends Component {
 	state = {}
@@ -30,6 +31,7 @@ class App extends Component {
 					<Switch>
 						<Route path='/register' component={ RegisterForm } />
 						<Route path='/login' component={ LoginForm } />
+						<Route path='/logout' component={ Logout } />
 						<Route path='/movies/:id' component={ MoviesForm } />
 						<Route path='/movies' component={ Movies } />
 						<Route path='/rentals' component={ Rentals } />

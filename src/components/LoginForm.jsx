@@ -1,7 +1,7 @@
 import React from 'react';
 import Joi from 'joi-browser';
 import Form from './reusable/Form';
-import { loginUser } from '../services/userService';
+import { loginUser } from '../services/authService';
 
 class LoginForm extends Form {
 	state = {
@@ -18,8 +18,7 @@ class LoginForm extends Form {
 		const { email, password } = this.state.data;
 
 		try {
-			const token = await loginUser({ email, password });
-			localStorage.setItem('token', token);
+			await loginUser({ email, password });
 			window.location = '/movies';
 		} catch (error) {
 			if (error.response && error.response.status === 400) {

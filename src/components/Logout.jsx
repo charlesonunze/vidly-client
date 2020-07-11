@@ -1,8 +1,9 @@
 import { Component } from 'react';
+import { logoutUser } from '../services/authService';
 
 class Logout extends Component {
-	componentDidMount() {
-		localStorage.removeItem('token');
+	async componentDidMount() {
+		await logoutUser();
 		window.location = '/movies';
 	}
 

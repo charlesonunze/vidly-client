@@ -1,14 +1,9 @@
 import httpService from "./httpService";
 import { apiEndpoint as apiURL } from "../config";
 
-const apiEndpoint = apiURL;
+const apiEndpoint = apiURL + '/users';
 
 export async function registerUser(userObject) {
-  const response = await httpService.post(apiEndpoint + '/users', userObject);
-  return response;
-}
-
-export async function loginUser(userObject) {
-  const { data: token } = await httpService.post(apiEndpoint + '/auth', userObject);
-  return token;
+  const response = await httpService.post(apiEndpoint, userObject);
+  localStorage.setItem('token', response.headers['x-auth-token']);
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Like from './reusable/Like';
 import Table from './reusable/Table';
+import { getCurrentUser } from '../services/authService';
 
 class MoviesTable extends Component {
 	columns = [
@@ -26,25 +27,29 @@ class MoviesTable extends Component {
 		{
 			key: 'like',
 			content: (movie) => {
-				return (
+				const user = getCurrentUser();
+
+				return user && user.isAdmin ? (
 					<Like
 						liked={movie.liked}
 						handleLike={() => this.props.onLike(movie._id)}
 					/>
-				);
+				) : null;
 			}
 		},
 		{
 			key: 'delete',
 			content: (movie) => {
-				return (
+				const user = getCurrentUser();
+
+				return user && user.isAdmin ? (
 					<button
 						className='btn btn-sm btn-danger'
 						onClick={() => this.props.onDelete(movie._id)}
 					>
 						Delete
 					</button>
-				);
+				) : null;
 			}
 		}
 	];

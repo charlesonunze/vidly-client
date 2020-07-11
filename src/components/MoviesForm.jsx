@@ -1,9 +1,9 @@
 import React from 'react';
 import Joi from 'joi-browser';
+import { toast } from 'react-toastify';
 import Form from './reusable/Form';
 import { getGenres } from '../services/genreService';
 import { saveMovie, getMovie, updateMovie } from '../services/movieService';
-import { toast } from 'react-toastify';
 
 class MoviesForm extends Form {
 	state = {

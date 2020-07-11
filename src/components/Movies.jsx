@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import { ToastContainer, toast } from 'react-toastify';
 import { getMovies, deleteMovie } from '../services/movieService';
 import { getGenres } from '../services/genreService';
 import MoviesTable from './MoviesTable';
 import Pagination from './reusable/Pagination';
 import { paginate } from '../utils/paginate';
 import ListGroup from './reusable/ListGroup';
-import _ from 'lodash';
 import FormInput from './reusable/FormInput';
-import { ToastContainer, toast } from 'react-toastify';
 
 class Movies extends Component {
 	state = {

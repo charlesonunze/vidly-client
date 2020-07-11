@@ -25,7 +25,7 @@ class RegisterForm extends Form {
 		try {
 			const response = await registerUser({ name, email, password });
 			localStorage.setItem('token', response.headers['x-auth-token']);
-			this.props.history.replace('/movies');
+			window.location = '/movies';
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
 				const errors = { ...this.state.errors };

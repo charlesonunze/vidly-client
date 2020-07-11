@@ -20,7 +20,7 @@ class LoginForm extends Form {
 		try {
 			const token = await loginUser({ email, password });
 			localStorage.setItem('token', token);
-			this.props.history.replace('/movies');
+			window.location = '/movies';
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
 				const errors = { ...this.state.errors };

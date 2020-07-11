@@ -18,6 +18,8 @@ class MoviesForm extends Form {
 	};
 
 	async componentDidMount() {
+		if (!this.props.user) return this.props.history.replace('/login');
+
 		const genres = await getGenres();
 		this.setState({ genres });
 

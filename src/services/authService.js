@@ -16,7 +16,7 @@ export async function logoutUser() {
   localStorage.removeItem(tokenKey);
 }
 
-export async function getCurrentUser() {
+export function getCurrentUser() {
   try {
     const token = localStorage.getItem(tokenKey);
     return jwtDecode(token);

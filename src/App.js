@@ -10,27 +10,30 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Logout from './components/Logout';
 import { getCurrentUser } from './services/authService';
+import ProtectedRoute from './components/reusable/ProtectedRoute';
 
 class App extends Component {
 	state = {}
 
-	async componentDidMount() {
-		const user = await getCurrentUser();
+	componentDidMount() {
+		const user = getCurrentUser();
 		this.setState({ user });
 	}
 
 	render() {
+		const user = this.state.user;
+
 		return (
 			<>
-				<NavBar user={ this.state.user } />
+				<NavBar user={ user } />
 
 				<main className='container'>
 					<Switch>
 						<Route path='/register' component={ RegisterForm } />
 						<Route path='/login' component={ LoginForm } />
 						<Route path='/logout' component={ Logout } />
-						<Route path='/movies/:id' component={ MoviesForm } />
-						<Route path='/movies' component={ Movies } />
+						<ProtectedRoute path='/movies/:id' component={ <MoviesForm /> } />
+						<Route path='/movies' render={ (props) => <Movies { ...props } user={ user } /> } />
 						<Route path='/rentals' component={ Rentals } />
 						<Route path='/customers' component={ Customers } />
 						<Route path='/not-found' component={ NotFound } />

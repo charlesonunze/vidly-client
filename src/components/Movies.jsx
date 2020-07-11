@@ -131,9 +131,12 @@ class Movies extends Component {
 
 		const movies = paginate(sortedMovies, currentPage, pageSize);
 
+		const user = this.props.user;
+
 		return (
 			<div className='row'>
 				<ToastContainer />
+
 				<div className='col-3'>
 					<ListGroup
 						items={allGenres}
@@ -143,9 +146,11 @@ class Movies extends Component {
 				</div>
 
 				<div className='col'>
-					<Link className='btn btn-primary mb-4' to='/movies/new'>
-						New Movie
-					</Link>
+					{user && (
+						<Link className='btn btn-primary mb-4' to='/movies/new'>
+							New Movie
+						</Link>
+					)}
 
 					<h6 className='mb-0'>
 						Showing {filteredMovies.length} movies in the database.
